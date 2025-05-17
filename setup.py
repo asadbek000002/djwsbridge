@@ -4,6 +4,8 @@ setup(
     name="djwsbridge",
     version="0.1.0",
     description="Real-time WebSocket bridge for Django (using Channels)",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
     author="Asadbek",
     author_email="email@asadbektuygunov9@gmail.com",
     url="https://github.com/asadbek000002/djwsbridge",  # bo‘sh qoldirsa ham bo‘ladi
