@@ -25,7 +25,7 @@ pip install djwsbridge
 ### Or install locally (for development):
 
 ```bash
-git clone https://github.com/username/djwsbridge.git
+git clone https://github.com/asadbek000002/djwsbridge.git
 cd djwsbridge
 pip install -e .
 ```
@@ -139,11 +139,26 @@ user = User.objects.get(id=1)
 send_ws_message(user.id, {"type": "signals", "content": "Test message!"})
 ```
 
-✅ This configuration is sufficient to use send_ws_message for sending real-time data to users without requiring chat or message models.
+✅ This configuration is sufficient to use send_ws_message for sending real-time data to users without requiring chat or
+message models.
 
 ---
 
 ## 💬 For Full Chat Functionality (Chat + Message Storage)
+
+📩 Sending a Message to Another User
+
+If you want to send a message to another user, you must provide the recipient’s user ID using the `recipient` key in the WebSocket message payload `("recipient": 2)`. This ID should correspond to an existing and valid user in the system.
+#### Example:
+
+```python
+{
+    "type": "chat",
+    "message": "Hello there!",
+    "recipient": 2
+}
+
+```
 
 ### 🧑‍💻 Example Models (`models.py`)
 
@@ -170,6 +185,7 @@ class Message(models.Model):
         return f"{self.sender} -> Chat {self.chat.id}: {self.content[:30]}"
 
 ```
+🔒 Note: `sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sent_messages")` sender is required in the database model, but when using the WebSocket API, it is automatically inferred from the connected user — you don't need to include it in your JSON payload. All other fields are optional unless explicitly required by your implementation.
 
 ### 🧭 Usage Modes
 
@@ -198,8 +214,6 @@ Ideal for lightweight signals, temporary chats, or backend-to-user updates.
 This makes djwsbridge suitable for both persistent chat systems and ephemeral real-time communications.
 
 ---
-
-
 
 ## 👨‍💻 Author
 

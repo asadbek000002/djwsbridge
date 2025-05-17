@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="djwsbridge",
-    version="0.1.2",
+    version="0.1.3",
     description="Real-time WebSocket bridge for Django (using Channels)",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

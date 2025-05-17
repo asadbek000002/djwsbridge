@@ -76,6 +76,7 @@ class UserConsumer(AsyncWebsocketConsumer):
             data_for_model = data.copy()
             data_for_model["sender"] = self.user
             data_for_model["chat"] = chat
+            data_for_model.pop("recipient", None)
 
             try:
                 valid_data = filter_valid_fields(Message, data_for_model)
