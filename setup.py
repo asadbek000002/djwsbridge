@@ -6,7 +6,7 @@ setup(
     description="Real-time WebSocket bridge for Django (using Channels)",
     author="Asadbek",
     author_email="email@asadbektuygunov9@gmail.com",
-    url="https://github.com/username/djwsbridge",  # bo‘sh qoldirsa ham bo‘ladi
+    url="https://github.com/asadbek000002/djwsbridge",  # bo‘sh qoldirsa ham bo‘ladi
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
