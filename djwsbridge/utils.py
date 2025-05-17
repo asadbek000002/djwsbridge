@@ -1,4 +1,6 @@
 # djwsbridge/utils.py
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -26,3 +28,18 @@ def filter_valid_fields(model_class, data: dict) -> dict:
     if invalid_keys:
         raise ValueError(f"Invalid fields for model {model_class.__name__}: {', '.join(invalid_keys)}")
     return filtered_data
+
+
+def send_ws_message(user_id: int, data: dict):
+    channel_layer = get_channel_layer()
+    if not channel_layer:
+        raise RuntimeError("Channel layer topilmadi")
+
+    group_name = f"user_{user_id}"
+    async_to_sync(channel_layer.group_send)(
+        group_name,
+        {
+            "type": "send.message",
+            "data": data,
+        }
+    )

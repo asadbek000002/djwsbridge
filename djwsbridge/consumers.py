@@ -69,13 +69,12 @@ class UserConsumer(AsyncWebsocketConsumer):
                 return
 
         # Chat va message modeli mavjud bo‘lsa, xabarni saqlaymiz
-        if Chat and Message and recipient:
+        if Chat and Message:
             chat = await sync_to_async(self.get_or_create_chat)(Chat, self.user_id, recipient.id)
 
             # sender va recipient ni instance ko‘rinishida qo‘shamiz
             data_for_model = data.copy()
             data_for_model["sender"] = self.user
-            data_for_model["recipient"] = recipient
             data_for_model["chat"] = chat
 
             try:
